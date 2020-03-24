@@ -20,38 +20,11 @@ Your folder should be names as "FirstnameLastname," for instance, "BangyaoZhao" 
 Do NOT change any data file except the tags.csv (mentioned in next section), only the original folder is perfect. Do NOT make any subfolders. ONLY upload following files: ACC.csv, EDA.csv, HR.csv, TEMP.csv for the sake of storage. You can check the folder LitianZhou for reference.
 
 ### Requirement for tags.csv
-We will only require the tags of GoToSleep and WakeUp (in CamelCase) with notation, named as "new_tags.csv". ![Example](tags.png)
+We will only require the tags of GoToSleep and WakeUp (in CamelCase without space!) with notation, named as "new_tags.csv". ![Example](new_tags.png)
 
 You can edit it use Excel or any text editor. It is preferred that you add an empty line at the bottom to avoid warning during data import.
 
 Optionally, you can add activities which interest you like running, exam, or drinking coffee. The only requirement is that you can make sure its timing according to your diary.
-
-\newpage
-# You do not need to read this
-```{r}
-# change to your own directory
-tags <- read.table("../data/QingzhiLiu/tags.csv", quote="\"", comment.char="")
-new_tags = cbind(tags[8:9,],
-                 c("GoToSleep", "WakeUp"))
-
-# If you have multiple sleeping periods, including naps
-# please include all of them in one tags.cvs
-new_tags = cbind(tags[c(8:9, 17:18),],
-                 c("GoToSleep", "WakeUp"),
-                 c())
-
-# export into a new file named new_tags.csv
-write.csv(new_tags, file = "new_tags.csv")
-```
-
-Optionally, you can add activities which interest you like running, exam, or drinking coffee. The only requirement is that you can make sure its timing according to your diary. You need to notate them as following example:
-```{r}
-# change to your own directory
-tags <- read.table("../data/LitianZhou/tags.csv", quote="\"", comment.char="")
-new_tags = cbind(tags[c(3, 5:6),],
-                 c("Running","GoToSleep", "WakeUp"))
-write.csv(new_tags, file = "new_tags.csv")
-```
 
 
 
