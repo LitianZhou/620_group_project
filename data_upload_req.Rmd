@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 We wrote a function for data import and cleaning, thus we need to standardize the raw data format. Please read the following instruction and re-upload your data.
 
 ### Folder Name
-Your folder should be names as "FirstnameLastname," for instance, "BangyaoZhao" and "NingyuanWang".
+Your folder should be names as "FirstnameLastname," for instance, "BangyaoZhao" and "NingyuanWang". Then, you can upload you data in the folder named as "data", which is inside the "620-GOGOGO" folder.
 
 ### Foler Content
 Do NOT change any data file except the tags.csv (mentioned in next section), only the original folder is perfect. Do NOT make any subfolders. ONLY upload following files: ACC.csv, EDA.csv, HR.csv, TEMP.csv for the sake of storage. You can check the folder LitianZhou for reference.
