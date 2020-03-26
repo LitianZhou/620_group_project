@@ -1,10 +1,11 @@
+library(readr)
 library(dplyr)
 
-data2df = function(people = "LitianZhou") {
+data2df = function(folder) {
   # read in data as vector/matrix
   # ada, acc have 10 seconds more data than HR, delete those data with subsetting
   
-  folder = paste0("data/", people)
+  folder = paste0("data/", folder)
   heart_rate = read.csv(paste0(folder, "/HR.csv"),
                         skip = 2,
                         header = F)[[1]]
@@ -14,8 +15,8 @@ data2df = function(people = "LitianZhou") {
   acc = read.csv(paste0(folder, "/ACC.csv"),
                  skip = 2,
                  header = F)[-c(1:10 * 32), ]
-  tags <- read_table2(paste0(folder, "/new_tags.csv"),
-                      col_names = FALSE)
+
+  tags <- read_table2(paste0(folder, "/new_tags.csv"),col_names = FALSE)
   names(tags) = c("time_line_linux", "event")
   
   # calculate mean value of ACC, EDA and TEMP in each second
@@ -55,31 +56,7 @@ data2df = function(people = "LitianZhou") {
     df$sleep[indi] = !df$sleep[indi]
   }
   df$sleep = df$sleep + 0
-  # if (nrow(sleep_tags) == 2)
-  #   df$sleep = as.numeric(
-  #     df$time_line > sleep_tags$time_line_linux[1] &
-  #       df$time_line < sleep_tags$time_line_linux[2]
-  #   )
-  # else if (nrow(sleep_tags) == 3)
-  #   df$sleep = as.numeric(
-  #     (
-  #       df$time_line > sleep_tags$time_line_linux[1] &
-  #         df$time_line < sleep_tags$time_line_linux[2]
-  #     ) | df$time_line > sleep_tags$time_line_linux[3]
-  #   )
-  # else if (nrow(sleep_tags) == 3)
-  #   df$sleep = as.numeric(
-  #     (
-  #       df$time_line > sleep_tags$time_line_linux[1] &
-  #         df$time_line < sleep_tags$time_line_linux[2]
-  #     ) | (
-  #       df$time_line > sleep_tags$time_line_linux[3] &
-  #         df$time_line < sleep_tags$time_line_linux[4]
-  #     )
-  #   )
   return(df)
 }
 
 
-df = data2df()
-plot(df$time_line, df$sleep)
