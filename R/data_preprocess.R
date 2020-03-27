@@ -1,4 +1,7 @@
 source('R/data2df.R')
+source('R/epoch_generation.R')
+source('R/ratio_standardization.R')
+
 library(ggplot2)
 
 #about 30s
