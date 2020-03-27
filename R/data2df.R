@@ -1,12 +1,12 @@
-library(readr)
-library(dplyr)
+require(readr)
+require(dplyr)
 
 data2df = function(folder) {
   # read in data as vector/matrix
   # ada, acc have 10 seconds more data than HR, delete those data with subsetting
   
   folder = paste0("data/", folder)
-  heart_rate = read.csv(paste0(folder, "/HR.csv"),
+  hr = read.csv(paste0(folder, "/HR.csv"),
                         skip = 2,
                         header = F)[[1]]
   eda = read.csv(paste0(folder, "/EDA.csv"),
@@ -15,7 +15,7 @@ data2df = function(folder) {
   acc = read.csv(paste0(folder, "/ACC.csv"),
                  skip = 2,
                  header = F)[-c(1:10 * 32), ]
-
+  
   tags <- read_table2(paste0(folder, "/new_tags.csv"),col_names = FALSE)
   names(tags) = c("time_line_linux", "event")
   
@@ -33,8 +33,8 @@ data2df = function(folder) {
   acc = mean_per_second(sqrt(acc[, 1] ^ 2 + acc[, 2] ^ 2 + acc[, 3] ^ 2), sampling_freq = 32)
   eda = mean_per_second(eda[-c(1:7)], sampling_freq = 4)
   
-  cut_tail = min(length(heart_rate), length(acc), length(eda))
-  heart_rate = heart_rate[1:cut_tail]
+  cut_tail = min(length(hr), length(acc), length(eda))
+  hr = hr[1:cut_tail]
   acc = acc[1:cut_tail]
   eda = eda[1:cut_tail]
   
@@ -44,12 +44,12 @@ data2df = function(folder) {
     header = F,
     nrows = 1
   ))
-  total_sec = length(heart_rate)
+  total_sec = length(hr)
   time_line_linux = start_time_sec + 1:total_sec
   time_line = as.POSIXlt(time_line_linux, origin = "1970-01-01", tz = timezone)
   
   sleep_tags = filter(tags, event %in% c("GoToSleep", "WakeUp"))
-  df = data.frame(time_line, time_line_linux, heart_rate, eda, acc)
+  df = data.frame(time_line, time_line_linux, hr, eda, acc)
   df$sleep = F
   for (i in 1:nrow(sleep_tags)) {
     indi = df$time_line > sleep_tags$time_line_linux[i]
