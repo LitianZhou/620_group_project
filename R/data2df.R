@@ -15,6 +15,9 @@ data2df = function(folder) {
   acc = read.csv(paste0(folder, "/ACC.csv"),
                  skip = 2,
                  header = F)[-c(1:10 * 32), ]
+  temp = read.csv(paste0(folder, "/temp.csv"),
+                 skip = 2,
+                 header = F)[-c(1:10 * 4), ]
   
   tags <- read_table2(paste0(folder, "/new_tags.csv"),col_names = FALSE)
   names(tags) = c("time_line_linux", "event")
@@ -32,11 +35,13 @@ data2df = function(folder) {
   }
   acc = mean_per_second(sqrt(acc[, 1] ^ 2 + acc[, 2] ^ 2 + acc[, 3] ^ 2), sampling_freq = 32)
   eda = mean_per_second(eda[-c(1:7)], sampling_freq = 4)
+  temp = mean_per_second(temp[-c(1:7)], sampling_freq = 4)
   
   cut_tail = min(length(hr), length(acc), length(eda))
   hr = hr[1:cut_tail]
   acc = acc[1:cut_tail]
   eda = eda[1:cut_tail]
+  temp = temp[1:cut_tail]
   
   timezone = 'America/Detroit'
   start_time_sec = as.numeric(read.csv(
@@ -49,7 +54,7 @@ data2df = function(folder) {
   time_line = as.POSIXlt(time_line_linux, origin = "1970-01-01", tz = timezone)
   
   sleep_tags = filter(tags, event %in% c("GoToSleep", "WakeUp"))
-  df = data.frame(time_line, time_line_linux, hr, eda, acc)
+  df = data.frame(time_line, time_line_linux, hr, eda, acc, temp)
   df$sleep = F
   for (i in 1:nrow(sleep_tags)) {
     indi = df$time_line > sleep_tags$time_line_linux[i]
