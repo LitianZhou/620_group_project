@@ -1,8 +1,3 @@
-
-
-
-
-
 model = glm(
   sleep ~ mean_hr + sd_hr + mean_eda + sd_eda + mean_acc + sd_acc,
   data = total_data,

@@ -43,17 +43,5 @@ data_epoch$ChenyiYu$night2 = epoch_generation(data$ChenyiYu$night2, m)
 data_epoch$NingyuanWang = bind_rows(data_epoch$NingyuanWang)
 data_epoch$ChenyiYu = bind_rows(data_epoch$ChenyiYu)
 
-# use ratio to standardize the data (optional!):
-data_df = NULL
-ind = 1
-for (people in data_epoch) {
-  #optional
-  #data_df[[ind]] = mean_ratio_standardization(people)
-  data_df[[ind]] = med_ratio_standardization(people)
-  ind = ind + 1
-}
-names(data_df) = names(data_epoch)
+# saveRDS(data_epoch,file = "data/data_epoch.rds")
 
-# combine the data of five group members:
-total_data = bind_rows(data_df)
-save(total_data, file = "./data/total_data.Rdata")
