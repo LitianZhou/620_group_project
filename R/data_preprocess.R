@@ -40,6 +40,7 @@ data_epoch$ChenyiYu$daytime1 = epoch_generation(data$ChenyiYu$daytime1, m)
 data_epoch$ChenyiYu$night1 = epoch_generation(data$ChenyiYu$night1, m)
 data_epoch$ChenyiYu$daytime2 = epoch_generation(data$ChenyiYu$daytime2, m)
 data_epoch$ChenyiYu$night2 = epoch_generation(data$ChenyiYu$night2, m)
+
 data_epoch$NingyuanWang = bind_rows(data_epoch$NingyuanWang)
 data_epoch$ChenyiYu = bind_rows(data_epoch$ChenyiYu)
 
