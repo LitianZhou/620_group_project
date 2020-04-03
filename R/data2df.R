@@ -1,10 +1,9 @@
 require(readr)
 require(dplyr)
 
-data2df = function(folder) {
+data2df = function(people_id, folder) {
   # read in data as vector/matrix
   # ada, acc have 10 seconds more data than HR, delete those data with subsetting
-  
   folder = paste0("data/", folder)
   hr = read.csv(paste0(folder, "/HR.csv"),
                         skip = 2,
@@ -55,6 +54,8 @@ data2df = function(folder) {
   
   sleep_tags = filter(tags, event %in% c("GoToSleep", "WakeUp"))
   df = data.frame(time_line, time_line_linux, hr, eda, acc, temp)
+  df$people_id = rep(people_id,nrow(df))
+  
   df$sleep = F
   for (i in 1:nrow(sleep_tags)) {
     indi = df$time_line > sleep_tags$time_line_linux[i]

@@ -42,6 +42,7 @@ epoch_generation = function(df, window_size = 600) {
     sd_acc = sd_acc,
     mean_temp = mean_temp,
     sd_temp = sd_temp,
+    people_id = df$people_id[1:length(windows)],
     sleep = sleep
   )
   answer=as.data.frame(answer)

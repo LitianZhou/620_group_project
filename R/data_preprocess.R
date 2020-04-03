@@ -6,23 +6,23 @@ library(ggplot2)
 
 #about 30s
 data = list(
-  LitianZhou = data2df(folder = "LitianZhou"),
+  LitianZhou = data2df(people_id = "LitianZhou", folder = "LitianZhou"),
   
   NingyuanWang = list(
-    Day1 = data2df(folder = "NingyuanWang/Day1"),
-    Day2 = data2df(folder = "NingyuanWang/Day2")
+    Day1 = data2df(people_id ="NingyuanWang", folder = "NingyuanWang/Day1"),
+    Day2 = data2df(people_id="NingyuanWang", folder = "NingyuanWang/Day2")
   ),
   
   ChenyiYu = list(
-    daytime1 = data2df(folder = "ChenyiYu/daytime1"),
-    night1 = data2df(folder = "ChenyiYu/night1"),
-    daytime2 = data2df(folder = "ChenyiYu/daytime2"),
-    night2 = data2df(folder = "ChenyiYu/night2")
+    daytime1 = data2df(people_id="ChenyiYu", folder = "ChenyiYu/daytime1"),
+    night1 = data2df(people_id="ChenyiYu", folder = "ChenyiYu/night1"),
+    daytime2 = data2df(people_id="ChenyiYu", folder = "ChenyiYu/daytime2"),
+    night2 = data2df(people_id="ChenyiYu", folder = "ChenyiYu/night2")
   ),
   
-  BangyaoZhao = data2df(folder = "BangyaoZhao"),
+  BangyaoZhao = data2df(people_id="BangyaoZhao", folder = "BangyaoZhao"),
   
-  QingzhiLiu = data2df(folder = "QingzhiLiu")
+  QingzhiLiu = data2df(people_id="BangyaoZhao",folder = "QingzhiLiu")
 )
 
 #check
