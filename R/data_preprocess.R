@@ -22,7 +22,7 @@ data = list(
   
   BangyaoZhao = data2df(people_id="BangyaoZhao", folder = "BangyaoZhao"),
   
-  QingzhiLiu = data2df(people_id="BangyaoZhao",folder = "QingzhiLiu")
+  QingzhiLiu = data2df(people_id="QingzhiLiu",folder = "QingzhiLiu")
 )
 
 #check
