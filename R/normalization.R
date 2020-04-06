@@ -4,19 +4,19 @@ source('R/ratio_standardization.R')
 
 ############ Normalization 1
 # use ratio to standardize the data (optional!):
-data_df = NULL
+data_df1 = NULL
 ind = 1
 for (people in data_epoch) {
   #optional
-  #data_df[[ind]] = mean_ratio_standardization(people)
-  data_df[[ind]] = med_ratio_standardization(people)
+  #data_df1[[ind]] = mean_ratio_standardization(people)
+  data_df1[[ind]] = med_ratio_standardization(people)
   ind = ind + 1
 }
-names(data_df) = names(data_epoch)
+names(data_df1) = names(data_epoch)
 
 # combine the data of five group members:
-total_data1 = bind_rows(data_df)
-# save(data_df1,total_data1, file = "./data/normalization1.Rdata")
+total_data1 = bind_rows(data_df1)
+save(data_df1,total_data1, file = "./data/normalization1.Rdata")
 
 ############ Normalizarion 2
 # use the package called limma, some warnings during installation and loading
