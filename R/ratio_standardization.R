@@ -25,3 +25,13 @@ mean_ratio_standardization = function(people) {
   }
   return(people)
 }
+
+centering_standardization = function(people) {
+  if (!is.data.frame(people)) {
+    people = bind_rows(people)
+  }
+  for (p in c(2:7)) {
+    people[[p]] = (people[[p]] - median(people[[p]]))/ sd(people[[p]])
+  }
+  return(people)
+}
