@@ -3,7 +3,7 @@ require(dplyr)
 
 data2df = function(people_id, folder) {
   # read in data as vector/matrix
-  # ada, acc have 10 seconds more data than HR, delete those data with subsetting
+  # eda, acc have 10 seconds more data than HR, delete those data with subsetting
   folder = paste0("data/", folder)
   hr = read.csv(paste0(folder, "/HR.csv"),
                         skip = 2,
