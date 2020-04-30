@@ -2,8 +2,6 @@ library(ggplot2)
 library(dplyr)
 library(PRROC)
 
-if(is.null(total_data_final_normalized)) 
-  total_data_final_normalized <- readRDS("data/total-data_final_normalized.rds")
 
 #####feature selection
 formula.full = SLEEP ~ ACC_MEAN + ACC_SD + ACC_Q1 + ACC_Q2 + ACC_Q3 +

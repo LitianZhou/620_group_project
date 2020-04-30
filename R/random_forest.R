@@ -9,7 +9,7 @@
 
 # load  data
 library(dplyr)
-load("/Users/wangningyuan/Desktop/BIOSTAT620/Project2/normalization1.Rdata")
+load("data/normalization1.Rdata")
 dim(total_data1) # 1248   11
 
 total_data1$sleep = factor(total_data1$sleep)
@@ -19,8 +19,6 @@ total_data1$id = ifelse(total_data1$people_id=="BangyaoZhao", 1,
                                         ifelse(total_data1$people_id =="QingzhiLiu", 4, 5))))
 summary(total_data1)
 names(total_data1)
-
-
 table(total_data1$sleep)
 
 # pairs(total_data1)
@@ -34,9 +32,6 @@ table(total_data1$sleep)
 # # please check: 0-634,1-239 
 # table(train$sleep)
 # # ggpairs(train) 
-
-
-
 
 # # tree model
 # # we found important features: mean_hr, sd_acc, mean_eda, sd_hr
@@ -100,55 +95,55 @@ rf_total_acc = 1-rf_total_err
 
 #################################################################################
 # KNN
-library(dplyr)
-library(tidyr)
-library(corrplot)
-library(ggplot2)
-library(class)
-
-# use all variables
-knn_test_err = c()
-knn_length = c()
-for (i in 1:5){
-  # split into train and test
-  train_knn = total_data1%>%filter(id!=i)
-  train_X = train_knn[,c(2:9)]
-  train_label = train_knn$sleep 
-  
-  test_knn = total_data1%>%filter(id==i)
-  test_X = test_knn[,c(2:9)]
-  test_label = test_knn$sleep 
-  knn_length[i] = nrow(test_knn)
-  
-  # calculate the mean and standard deviation using train_knn
-  mean_train = colMeans(train_X)
-  sd_train = apply(train_X,2,sd) 
-  
-  # normalize the train_knn and test_knn using above mean and sd
-  train_X = scale(train_X,center = mean_train,scale = sd_train)
-  test_X = scale(test_X,center = mean_train,scale = sd_train)
-
-  # # Fit knn
-
-  knn_test_pred = knn(train_X,test_X,train_label,k = 1:100)
-  #
-  # # test error 
-  knn_test_err[i] = mean(knn_test_pred != test_label)
-}
-
-
-knn_test_err
-knn_test_acc = 1-knn_test_err
-knn_total_err = sum(knn_length * knn_test_err)/nrow(total_data1)
-knn_total_acc = 1- knn_total_err# 0.1266026
-
-
-# accuracy table
-knn_tb = c(knn_test_acc, knn_total_acc) %>% round(2)
-rf_tb = c(rf_test_acc, rf_total_acc)%>% round(2)
-names(knn_tb)  = c("Zhao", "Zhou", "Yu", "Liu", "Wang", "Total")
-names(rf_tb)  = c("Zhao", "Zhou", "Yu", "Liu", "Wang", "Total")
-rbind(knn_tb, rf_tb) 
+# library(dplyr)
+# library(tidyr)
+# library(corrplot)
+# library(ggplot2)
+# library(class)
+# 
+# # use all variables
+# knn_test_err = c()
+# knn_length = c()
+# for (i in 1:5){
+#   # split into train and test
+#   train_knn = total_data1%>%filter(id!=i)
+#   train_X = train_knn[,c(2:9)]
+#   train_label = train_knn$sleep 
+#   
+#   test_knn = total_data1%>%filter(id==i)
+#   test_X = test_knn[,c(2:9)]
+#   test_label = test_knn$sleep 
+#   knn_length[i] = nrow(test_knn)
+#   
+#   # calculate the mean and standard deviation using train_knn
+#   mean_train = colMeans(train_X)
+#   sd_train = apply(train_X,2,sd) 
+#   
+#   # normalize the train_knn and test_knn using above mean and sd
+#   train_X = scale(train_X,center = mean_train,scale = sd_train)
+#   test_X = scale(test_X,center = mean_train,scale = sd_train)
+# 
+#   # # Fit knn
+# 
+#   knn_test_pred = knn(train_X,test_X,train_label,k = 1:100)
+#   #
+#   # # test error 
+#   knn_test_err[i] = mean(knn_test_pred != test_label)
+# }
+# 
+# 
+# knn_test_err
+# knn_test_acc = 1-knn_test_err
+# knn_total_err = sum(knn_length * knn_test_err)/nrow(total_data1)
+# knn_total_acc = 1- knn_total_err# 0.1266026
+# 
+# 
+# # accuracy table
+# knn_tb = c(knn_test_acc, knn_total_acc) %>% round(2)
+# rf_tb = c(rf_test_acc, rf_total_acc)%>% round(2)
+# names(knn_tb)  = c("Zhao", "Zhou", "Yu", "Liu", "Wang", "Total")
+# names(rf_tb)  = c("Zhao", "Zhou", "Yu", "Liu", "Wang", "Total")
+# rbind(knn_tb, rf_tb) 
 
 #######################################################################
 # tune random forest model 
@@ -183,6 +178,5 @@ library(ggplot2)
 ggplot(data=importance, aes(x=Feature, y=Importance)) +
   geom_bar(stat = 'identity',colour = "royalblue1", fill = "royalblue1", width = 0.6) + coord_flip() + labs(title = "Feature Importance in Sleepiness Classification") +
   scale_y_continuous(name = "Importance") + scale_x_discrete(name = "Feature") +  theme_bw() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.ticks = element_line(color = "grey60"), plot.title = element_text(hjust = 0.5), text = element_text(size = 10, face = "bold"))
-
 
 

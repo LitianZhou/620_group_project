@@ -1,7 +1,7 @@
-source("R/diagnostic1_outliers.R")
+library(magrittr)
 
 total_data_final_normalized = readRDS("data/total-data_final_normalized.rds")
-
+source("R/diagnostic1_outliers.R")
 
 outliers = readRDS("data/outliers.rds")
 
