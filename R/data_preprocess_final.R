@@ -43,4 +43,4 @@ for (feature in normalize_vector) {
   total_data_final[[which(normalize_vector==feature)+8]] = scaled_feature[,2]
 }
 
-saveRDS(total_data_final, file = "data/total-data_final_normalized.rds")
+#saveRDS(total_data_final, file = "data/total-data_final_normalized.rds")
